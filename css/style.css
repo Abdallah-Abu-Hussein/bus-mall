@@ -1,0 +1,50 @@
+* {
+    box-sizing: border-box;
+  }
+  h1 {
+    text-align: center;
+  }
+  img {
+    display: block;
+    width: 150px;
+    float: left;
+    height: 150px;
+    border: 2px solid lightblue;
+  }
+  #image-container {
+    padding-left: 200px;
+    width: 800px;
+    margin: 0 auto;
+    height: 175px;
+  }
+  #pro_1,
+  #pro_2{
+     width: 200px;
+    margin: 10px;
+    display: block; 
+  }  
+  span {
+    margin-left: 50px;
+  }
+  #attempts {
+    margin-left: 20px;
+    font-size: 30px;
+  }
+  main p{
+    text-align: center;
+    font-weight: bold;
+    font: size 30px;
+  }
+  ul li{
+    margin-bottom: 1%;
+    font: size 20px;
+    font-weight: bold;
+  }
+  button {
+  
+  }
+  footer{
+    margin-top: 100px;
+    position:absolute;
+    left : 50%;
+  }
