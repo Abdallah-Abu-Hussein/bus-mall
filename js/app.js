@@ -80,6 +80,8 @@ function clickHandler(event){
     
 function showButton() {
     document.getElementById('button1').style.visibility = 'visible';
+    chartElement();
+
 }
 
     let my_results = function(){           
@@ -95,7 +97,49 @@ function showButton() {
         }
     
     }
-   
+    function chartElement() {
 
-
+        let nameArray = [];
+        let clicksArray = [];
+        let viewsArray = [];
+    
+        for (let i = 0; i < all_products.length; i++) {
+            nameArray.push(all_products[i].pro_name);
+            clicksArray.push(all_products[i].clicks);
+            viewsArray.push(all_products[i].views);
+        }
+        let ctx = document.getElementById('myChart').getContext('2d');
+        new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: nameArray,
+                datasets: [
+                    {
+                        label: '# of Votes',
+                        data: clicksArray,
+                        backgroundColor: 'rgba(255, 99, 132, 0.2)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 2
+                    },
+                    {
+                        label: '# of views',
+                        data: viewsArray,
+                        backgroundColor: 'rgba(255, 99, 132, 1.2)',
+                        borderColor: 'rgba(255, 99, 132, 1)',
+                        borderWidth: 2
+                    },
+    
+                ]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    }
 
