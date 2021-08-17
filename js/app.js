@@ -11,6 +11,21 @@ let all_products =[];
 let maxAttempts = 25;
 let attempt = 0;
 
+// function saveToLocalStorage() {
+//     let data = JSON.stringify(all_products);
+//     localStorage.setItem('products', data);
+// }
+// function readFromLocalStorage() {
+//     let stringObj = localStorage.getItem('coffee');
+//     let normalObj = JSON.parse(stringObj);
+
+//     if (normalObj) {
+//         all_products = normalObj;
+//         render_images();
+//     }
+// }
+// readFromLocalStorage();
+
 function Product(pro_name){
     this.pro_name = pro_name.split('.')[0];
     this.Img = `images/${pro_name}.jpg`;
@@ -28,17 +43,30 @@ function make_random_images(){
 let pro1_index ;
 let pro2_index ;
 let pro3_index ;
-
+let showed_images=[];
 function render_images(){
     document.getElementById('button1').style.visibility = 'hidden';
+
     pro1_index = make_random_images();
     pro2_index = make_random_images();
     pro3_index = make_random_images();
+    
 
-    while(pro1_index === pro2_index || pro1_index === pro3_index ||pro2_index === pro3_index){
+    while(
+           pro1_index === pro2_index 
+        || pro1_index === pro3_index 
+        || pro2_index === pro3_index 
+        || showed_images.includes(pro1_index) 
+        || showed_images.includes(pro2_index)
+        || showed_images.includes(pro3_index)
+        ){
+
         pro1_index = make_random_images();
+        pro2_index = make_random_images();
         pro3_index = make_random_images();
     }
+    
+
     pro_1.setAttribute('src',all_products[pro1_index].Img);
     pro_2.setAttribute('src',all_products[pro2_index].Img);
     pro_3.setAttribute('src',all_products[pro3_index].Img);
@@ -46,7 +74,12 @@ function render_images(){
     all_products[pro1_index].views++;
     all_products[pro2_index].views++;
     all_products[pro3_index].views++;
-    
+
+    showed_images[0] = pro1_index;
+    showed_images[1] = pro2_index;
+    showed_images[2] = pro3_index;
+
+    console.log(showed_images);
 }
 render_images();
 
@@ -68,10 +101,11 @@ function clickHandler(event){
             all_products[pro3_index].clicks++;
         }
         render_images();
-        console.log(all_products);
+       // console.log(all_products);
         attempt++;
     } else {
     showButton();
+    localStorage.setItem('products', JSON.stringify(all_products));
     pro_1.removeEventListener('click', clickHandler);
     pro_2.removeEventListener('click', clickHandler);
     pro_3.removeEventListener('click', clickHandler);
@@ -98,6 +132,8 @@ function showButton() {
         }
     
     }
+    render_images();
+
     function chartElement() {
 
         let nameArray = [];
@@ -143,4 +179,15 @@ function showButton() {
             }
         });
     }
+
+    function getData(){
+        let data = localStorage.getItem('products');
+        if (data){
+        let dataObject = JSON.parse(data);
+        all_products= dataObject;
+        render_images();
+    }
+    };
+    getData();
+    render_images();
 
