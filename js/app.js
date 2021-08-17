@@ -30,6 +30,7 @@ let pro2_index ;
 let pro3_index ;
 
 function render_images(){
+    document.getElementById('button1').style.visibility = 'hidden';
     pro1_index = make_random_images();
     pro2_index = make_random_images();
     pro3_index = make_random_images();
